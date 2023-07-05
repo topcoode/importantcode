@@ -1,0 +1,40 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+type Object struct {
+	// Define the structure of your pooled object
+	// ...
+
+}
+
+func main() {
+	// Create a new pool of objects
+	objectPool := sync.Pool{
+		New: func() interface{} {
+			// Create a new object when the pool is empty
+			return &Object{}
+		},
+	}
+
+	// Get an object from the pool
+	obj := objectPool.Get().(*Object)
+
+	// Use the object
+	fmt.Println(obj)
+
+	// Put the object back to the pool
+	objectPool.Put(obj)
+
+	// Get an object from the pool (reusing the previously put object)
+	obj = objectPool.Get().(*Object)
+
+	// Use the object again
+	fmt.Println(obj)
+
+	// Don't forget to put the object back to the pool when you're done with it
+	objectPool.Put(obj)
+}

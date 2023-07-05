@@ -1,0 +1,8 @@
+func SearchNFServiceUri(nfProfile models.NfProfile, serviceName string, serviceStatus models.NfServiceStatus) string {
+    for _, service := range nfProfile.NfServices {
+        if service.Name == serviceName && service.Status == serviceStatus {
+            return service.Uri
+        }
+    }
+    return ""
+}

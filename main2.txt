@@ -1,0 +1,22 @@
+package main
+
+import "fmt"
+
+type Struct1 struct {
+	Fristname  *Struct2
+	Secondname string
+}
+type Struct2 struct {
+	Address string
+	PhoneNo string
+}
+
+func main() {
+	_ = Struct1{
+		Fristname:  &Struct2{"hl", "dsaf"},
+		Secondname: "kumar",
+	}
+	var data Struct1
+	data.Fristname = new(Struct2)
+	fmt.Println("data---->", data)
+}

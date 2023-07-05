@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"strings"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	router := gin.Default()
+	router.GET("/getdata", Getdata)
+	if err := router.Run(":8080"); err != nil {
+		fmt.Println("err on the port ...")
+	}
+}
+func Getdata(c *gin.Context) {
+	//output:= slice data --------------------->[]
+	contentType := c.GetHeader("Content-Type")
+	s := strings.Split(contentType, ";")
+	fmt.Println("contentType:", s)
+	//---------------------------------------------------------------------------------->
+	//output: slice data ---------------------->[]
+	requestBody, err := c.GetRawData()
+	if err != nil {
+		fmt.Println("error", err)
+	}
+	fmt.Println("GetRawData:", requestBody)
+	//--------------------------------------------------------------------------------->
+	//deserilizing the data
+
+}
+func handleRequest(w http.ResponseWriter, r *http.Request) {
+	// Perform authorization check
+	authorized := false
+
+	if !authorized {
+		// Set the response status to 403 Forbidden
+		w.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	// Continue with normal processing
+	// ...
+}

@@ -1,0 +1,36 @@
+package parsenssf
+
+import (
+	"encoding/hex"
+	"fmt"
+
+	"github.com/free5gc/nas/nasMessage"
+)
+
+// Retrieve the NAS message from the UE.
+func ParsingtheNssf() {
+	nasPdu, err := nas.Decode(ueMessage) // ueMessage contains the NAS message received from the UE
+	if err != nil {
+		// Handle error
+	}
+	//Extract the NAS registration request from the NAS message:
+	registrationRequest, ok := nasPdu.(*nasMessage.RegistrationRequest)
+	if !ok {
+		// Handle invalid NAS message type
+	}
+	//Extract the requested NSSAI from the registration request.
+	requestedNssai := registrationRequest.GetRequestedNSSAI()
+	/*
+	   Process the requested NSSAI as per your application logic.
+	   You can access various parameters of the NSSAI, such as slice type,
+	   slice identifier, and different NSSAI components
+	*/
+	for _, nssai := range requestedNssai {
+		sliceType := nssai.GetSliceType()
+		sliceIdentifier := hex.EncodeToString(nssai.GetSliceSNSSAI().GetSST())
+		// Process the slice type and identifier as needed
+		fmt.Println(sliceType)
+		fmt.Println(sliceIdentifier)
+	}
+
+}

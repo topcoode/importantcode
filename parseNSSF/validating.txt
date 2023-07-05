@@ -1,0 +1,55 @@
+package parseNSSF
+func validateRequestedNssai(requestedNssai *Nssai) bool {
+	// Check for presence of required fields
+	if requestedNssai == nil || len(requestedNssai.SliceInfoList) == 0 {
+		return false
+	}
+
+	// Perform validation against supported NSSAI configurations
+	for _, sliceInfo := range requestedNssai.SliceInfoList {
+		// Check if slice identifier and slice type are supported
+		if !isSupportedSlice(sliceInfo.SliceId, sliceInfo.SliceType) {
+			return false
+		}
+	}
+
+	// Apply additional policy checks if necessary
+
+	return true
+}
+
+func isSupportedSlice(sliceId string, sliceType string) bool {
+	// Check if the requested slice identifier and slice type are supported in your system
+	// Implement the logic specific to your supported NSSAI configurations
+
+	// Example: Check against a predefined list of supported slices
+	supportedSlices := map[string]string{
+		"slice1": "type1",
+		"slice2": "type2",
+		// Add more supported slices
+	}
+
+	_, exists := supportedSlices[sliceId]
+	if !exists {
+		return false
+	}
+
+	// You can also check for specific slice types if necessary
+
+	return true
+}
+
+func main() {
+	// Assuming you have received the requested NSSAI from the UE in the form of a data structure
+	requestedNssai := &Nssai{
+		// Populate the requested NSSAI fields
+	}
+
+	// Validate the requested NSSAI
+	if validateRequestedNssai(requestedNssai) {
+		// Proceed with further processing and respond to the UE with the selected NSSAI
+	} else {
+		// Handle the case where the requested NSSAI is invalid or unsupported
+		// Reject the registration request or send an appropriate rejection message to the UE
+	}
+}

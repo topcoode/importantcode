@@ -1,0 +1,49 @@
+package parsenssf
+
+import (
+	"fmt"
+)
+
+type RequestedNssai struct {
+	// Define the structure for Requested NSSAI fields
+	// Add fields for NSSAI, slice type, and other relevant parameters
+	Nssai     string
+	SliceType string
+	// Add more fields as needed
+}
+
+func handleRequestedNssai(requestedNssai RequestedNssai) error {
+	// Perform validation and selection logic here
+	// You can access the requested NSSAI fields as requestedNssai.Nssai, requestedNssai.SliceType, etc.
+
+	// Example validation logic
+	if requestedNssai.Nssai != "MyNSSAI" {
+		return fmt.Errorf("Requested NSSAI not supported")
+	}
+
+	// Example selection logic
+	// Select the appropriate network slice based on the requested NSSAI and other parameters
+	selectedSlice := "MySelectedSlice"
+	fmt.Println(selectedSlice)
+	// Perform further actions with the selected slice
+	// ...
+
+	return nil
+}
+
+func main() {
+	// Example usage
+	requestedNssai := RequestedNssai{
+		Nssai:     "MyNSSAI",
+		SliceType: "MySliceType",
+		// Assign other requested NSSAI parameters
+	}
+
+	err := handleRequestedNssai(requestedNssai)
+	if err != nil {
+		fmt.Printf("Error handling requested NSSAI: %s\n", err.Error())
+		return
+	}
+
+	fmt.Println("NSSAI selection and handling successful")
+}
